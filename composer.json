@@ -1,0 +1,12 @@
+{
+    "name": "gustavguez/estudio-ruiz-asociados-web",
+    "description": "Web Estudio Ruiz y Asociados",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Gustavo Rodriguez",
+            "email": "gustavguez@gmail.com"
+        }
+    ],
+    "require": {}
+}

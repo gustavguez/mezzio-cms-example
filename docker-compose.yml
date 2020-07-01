@@ -1,0 +1,45 @@
+version: "3.1"
+
+services:
+
+  api:
+    build: docker/apache
+    container_name: estudioruizasociados-web-apache
+    working_dir: /var/www
+    ports:
+     - "8080:80"
+    links:
+      - db:estudioruizasociados-web-mysql
+    volumes:
+      - .:/var/www
+      - ./docker/apache/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    expose:
+      - 9001 # xdebug port
+    environment:
+      PHP_XDEBUG_ENABLED: 1
+      XDEBUG_CONFIG: remote_host=10.254.254.254 # set interface up - sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      PHP_IDE_CONFIG: serverName=test # name of the docker server set up in PHPStorm
+      DB_USERNAME: dbuser
+      DB_PASSWORD: 123
+      DB_HOST: db
+      DB_NAME: test_db
+
+  db:
+    image: mysql:8.0
+    entrypoint: ['/entrypoint.sh', '--default-authentication-plugin=mysql_native_password']
+    container_name: estudioruizasociados-web-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=123
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - "8081:3306"
+
+  adminer:
+    image: adminer
+    container_name: estudioruizasociados-web-adminer
+    restart: always
+    ports:
+      - "8082:8080"

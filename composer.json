@@ -2,7 +2,7 @@
     "name": "mezzio/mezzio-skeleton",
     "description": "Laminas mezzio skeleton. Begin developing PSR-15 middleware applications in seconds!",
     "type": "project",
-    "license": "BSD-3-Clause",
+	"license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mezzio",
@@ -42,12 +42,12 @@
         "laminas/laminas-component-installer": "^2.1.2",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-diactoros": "^2.3.0",
+        "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-stdlib": "^3.2.1",
         "laminas/laminas-zendframework-bridge": "^1.0",
         "mezzio/mezzio": "^3.2.1",
-        "mezzio/mezzio-helpers": "^5.3",
-        "laminas/laminas-servicemanager": "^3.4",
         "mezzio/mezzio-fastroute": "^3.0.3",
+        "mezzio/mezzio-helpers": "^5.3",
         "mezzio/mezzio-twigrenderer": "^2.6"
     },
     "require-dev": {

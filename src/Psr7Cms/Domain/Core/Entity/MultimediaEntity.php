@@ -32,12 +32,6 @@ class MultimediaEntity implements JsonSerializable {
     private $description;
 
     /**
-     * @ORM\Column(name="type", type="integer")
-     * @var string
-     */
-    private $type;
-
-    /**
      * @ORM\Column(name="source", type="string")
      * @var string
      */
@@ -61,10 +55,6 @@ class MultimediaEntity implements JsonSerializable {
         return $this->description;
     }
 
-    public function getType() {
-        return $this->type;
-    }
-
     public function getSource() {
         return $this->source;
     }
@@ -85,10 +75,6 @@ class MultimediaEntity implements JsonSerializable {
         $this->description = $description;
     }
 
-    public function setType($type) {
-        $this->type = $type;
-    }
-
     public function setSource($source) {
         $this->source = $source;
     }
@@ -102,7 +88,6 @@ class MultimediaEntity implements JsonSerializable {
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'type' => $this->type,
             'source' => $this->source,
             'folder' => $this->folder
         ];

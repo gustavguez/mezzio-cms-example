@@ -48,7 +48,8 @@
         "mezzio/mezzio": "^3.2.1",
         "mezzio/mezzio-fastroute": "^3.0.3",
         "mezzio/mezzio-helpers": "^5.3",
-        "mezzio/mezzio-twigrenderer": "^2.6"
+        "mezzio/mezzio-twigrenderer": "^2.6",
+        "roave/psr-container-doctrine": "^2.2"
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.2",
@@ -61,8 +62,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/"
-        }
+			"App\\": "src/App/",
+			"Gustavguez\\Psr7Cms\\": "src/Psr7Cms/"
+		}
     },
     "autoload-dev": {
         "psr-4": {

@@ -37,13 +37,12 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
 	
 	
-	//PSR7-CMS ROUTES
-    $app->pipe(CorsMiddleware::class);
+	//MEZZIO-CMS ROUTES
     $app->post('/oauth', OAuth2\TokenEndpointHandler::class);
-	$app->route('/cms/news[/:id]', [
-		Mezzio\Authentication\AuthenticationMiddleware::class,
-		Gustavguez\Psr7Cms\Handler\Core\NewsCmsHandler::class
-	], 
-	['GET']
-);
+	$app->route('/cms/news[/{id}]', [
+			Mezzio\Authentication\AuthenticationMiddleware::class,
+			Gustavguez\MezzioCms\Handler\Core\NewsContentCmsHandler::class
+		], 
+		['GET']
+	);
 };

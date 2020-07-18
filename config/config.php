@@ -34,8 +34,8 @@ $aggregator = new ConfigAggregator([
     // Default App module config
 	App\ConfigProvider::class,
 	
-	// Add Psr7Cms config
-	Gustavguez\Psr7Cms\ConfigProvider::class,
+	// Add MezzioCms config
+	Gustavguez\MezzioCms\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):

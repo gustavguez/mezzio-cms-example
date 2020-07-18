@@ -1,6 +1,0 @@
-<?php
-return [
-    'psr7-cms' => [
-		'multimedia_path' =>  __DIR__ . '/../../public_html/images/contents/',
-	],
-];

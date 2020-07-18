@@ -27,7 +27,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(ErrorHandler::class);
 	$app->pipe(ServerUrlMiddleware::class);
 	
-	//PSR7-CMS PIPES
+	//MEZZIO-CMS PIPES
     $app->pipe(BodyParamsMiddleware::class);
     $app->pipe(CorsMiddleware::class);
 

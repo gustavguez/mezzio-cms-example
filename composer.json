@@ -47,10 +47,12 @@
         "laminas/laminas-stdlib": "^3.2.1",
         "laminas/laminas-zendframework-bridge": "^1.0",
         "mezzio/mezzio": "^3.2.1",
+        "mezzio/mezzio-authentication-oauth2": "^2.0",
         "mezzio/mezzio-fastroute": "^3.0.3",
         "mezzio/mezzio-helpers": "^5.3",
         "mezzio/mezzio-twigrenderer": "^2.6",
-        "roave/psr-container-doctrine": "^2.2"
+        "roave/psr-container-doctrine": "^2.2",
+        "tuupola/cors-middleware": "^1.1"
     },
     "require-dev": {
         "laminas/laminas-development-mode": "^3.2",

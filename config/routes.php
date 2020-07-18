@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
+use Mezzio\Authentication\OAuth2;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -34,9 +35,13 @@ use Psr\Container\ContainerInterface;
  */
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
-	$app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 	
+	
+	//PSR7-CMS ROUTES
+    $app->pipe(CorsMiddleware::class);
+    $app->post('/oauth', OAuth2\TokenEndpointHandler::class);
 	$app->route('/cms/news[/:id]', [
+		Mezzio\Authentication\AuthenticationMiddleware::class,
 		Gustavguez\Psr7Cms\Handler\Core\NewsCmsHandler::class
 	], 
 	['GET']

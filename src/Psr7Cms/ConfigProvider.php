@@ -36,6 +36,9 @@ class ConfigProvider
                 
             ],
             'factories'  => [
+				//Middlewares
+				\Tuupola\Middleware\CorsMiddleware::class => Middleware\CorsMiddlewareFactory::class, 
+				
                 //Handlers
                 Handler\Core\NewsCmsHandler::class => Handler\Core\Factory\NewsCmsHandlerFactory::class,
 

@@ -15,6 +15,9 @@ use Mezzio\Router\Middleware\MethodNotAllowedMiddleware;
 use Mezzio\Router\Middleware\RouteMiddleware;
 use Psr\Container\ContainerInterface;
 
+use Mezzio\Helper\BodyParams\BodyParamsMiddleware;
+use Tuupola\Middleware\CorsMiddleware;
+
 /**
  * Setup middleware pipeline:
  */
@@ -22,7 +25,11 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
     $app->pipe(ErrorHandler::class);
-    $app->pipe(ServerUrlMiddleware::class);
+	$app->pipe(ServerUrlMiddleware::class);
+	
+	//PSR7-CMS PIPES
+    $app->pipe(BodyParamsMiddleware::class);
+    $app->pipe(CorsMiddleware::class);
 
     // Pipe more middleware here that you want to execute on every request:
     // - bootstrapping

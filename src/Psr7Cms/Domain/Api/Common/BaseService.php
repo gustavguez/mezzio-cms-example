@@ -16,7 +16,7 @@ class BaseService
 
     public function __construct(EntityManager $entityManager = null) {
         $this->entityManager = $entityManager;
-        $this->repository = $this->entityManager->getRepository($this->class);
+        $this->entityRepository = $this->entityManager->getRepository($this->class);
     }
 
     public function getEntity($id){

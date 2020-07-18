@@ -3,7 +3,7 @@
 namespace Gustavguez\Psr7Cms\Domain\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-//use Cocur\Slugify\Slugify;
+use Cocur\Slugify\Slugify;
 use JsonSerializable;
 
 abstract class ContentEntity implements JsonSerializable {
@@ -152,7 +152,7 @@ abstract class ContentEntity implements JsonSerializable {
 
     public function jsonSerialize() {
         $multimedia = null;
-        //$slug = Slugify::create();
+        $slug = Slugify::create();
 
         if ($this->multimedia instanceof JsonSerializable) {
             $multimedia = $this->multimedia->jsonSerialize();
@@ -161,7 +161,7 @@ abstract class ContentEntity implements JsonSerializable {
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'slug' => '',//$slug->slugify(html_entity_decode($this->title)),
+            'slug' => $slug->slugify(html_entity_decode($this->title)),
             'keywords' => $this->keywords,
             'description' => $this->description,
             'content' => $this->content,
@@ -170,9 +170,6 @@ abstract class ContentEntity implements JsonSerializable {
             'upDate' => $this->upDate,
             'multimedia' => $multimedia,
             'userId' => $this->userId,
-            'typeId' => $this->getTypeId(),
-            'typeName' => $this->getTypeName(),
-            'pathName' => $this->getPathName(),
         ];
 	}
 	

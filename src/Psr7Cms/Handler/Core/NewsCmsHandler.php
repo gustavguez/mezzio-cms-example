@@ -17,6 +17,9 @@ class NewsCmsHandler extends BaseHandler
 
     public function get(ServerRequestInterface $request): ApiResponseEntity
     {   
-        return new ApiResponseEntity([]);
+		
+        return new ApiResponseEntity(
+			$this->service->getCollection()
+		);
     }
 }

@@ -38,11 +38,15 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 	
 	
 	//MEZZIO-CMS ROUTES
-    $app->post('/oauth', OAuth2\TokenEndpointHandler::class);
+	$app->post('/oauth', OAuth2\TokenEndpointHandler::class);
+	$app->route('/oauth/me', [
+			Mezzio\Authentication\AuthenticationMiddleware::class,
+			Gustavguez\MezzioCms\Handler\Oauth\MeHandler::class
+		], ['GET']
+	);
 	$app->route('/cms/news[/{id}]', [
 			Mezzio\Authentication\AuthenticationMiddleware::class,
-			Gustavguez\MezzioCms\Handler\Core\NewsContentCmsHandler::class
-		], 
-		['GET']
+			Gustavguez\MezzioCms\Handler\Core\NewsContentHandler::class
+		], ['GET']
 	);
 };

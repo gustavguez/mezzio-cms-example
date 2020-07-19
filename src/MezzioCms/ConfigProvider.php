@@ -41,6 +41,7 @@ class ConfigProvider
 				
                 //Handlers
                 Handler\Oauth\MeHandler::class => Handler\Oauth\Factory\MeHandlerFactory::class,
+                Handler\Core\RenderHandler::class => Handler\Core\Factory\RenderHandlerFactory::class,
                 Handler\Core\NewsContentHandler::class => Handler\Core\Factory\NewsContentHandlerFactory::class,
                 Handler\Core\NewsContentCategoryHandler::class => Handler\Core\Factory\NewsContentCategoryHandlerFactory::class,
 

@@ -34,10 +34,11 @@ use Psr\Container\ContainerInterface;
  * );
  */
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
-	
+	$app->get('/', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'home');
+	$app->get('/news', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'news');
 	
 	//MEZZIO-CMS ROUTES
+	//$app->get('/', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'home');
 	$app->post('/oauth', OAuth2\TokenEndpointHandler::class);
 	$app->route('/oauth/me', [
 			Mezzio\Authentication\AuthenticationMiddleware::class,

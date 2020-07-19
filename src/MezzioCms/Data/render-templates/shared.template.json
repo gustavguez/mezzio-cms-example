@@ -1,0 +1,11 @@
+{
+	"renders": [
+		{
+			"key": "all-news",
+			"render": "news",
+			"params": [
+				
+			]
+		}
+	]
+}

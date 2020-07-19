@@ -41,7 +41,13 @@ class MultimediaEntity implements JsonSerializable {
      * @ORM\Column(name="folder", type="string")
      * @var string
      */
-    private $folder;
+	private $folder;
+	
+	 /**
+     * @ORM\Column(name="type", type="integer")
+     * @var string
+     */
+    private $type;
 
     public function getId() {
         return $this->id;
@@ -61,6 +67,10 @@ class MultimediaEntity implements JsonSerializable {
 
     public function getFolder() {
         return $this->folder;
+	}
+
+	public function getType() {
+        return $this->type;
     }
 
     public function setId($id) {
@@ -81,6 +91,10 @@ class MultimediaEntity implements JsonSerializable {
 
     public function setFolder($folder) {
         $this->folder = $folder;
+	}
+	
+	public function setType($type) {
+        $this->type = $type;
     }
 
     public function jsonSerialize() {
@@ -89,7 +103,8 @@ class MultimediaEntity implements JsonSerializable {
             'title' => $this->title,
             'description' => $this->description,
             'source' => $this->source,
-            'folder' => $this->folder
+            'folder' => $this->folder,
+            'type' => $this->type
         ];
     }
 

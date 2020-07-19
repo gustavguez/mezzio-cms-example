@@ -36,8 +36,11 @@ class MultimediaService extends BaseService {
                     $multimedia = new MultimediaEntity();
                     $multimedia->setType(1); //Pictures
                     $multimedia->setFolder($folder);
-                    $multimedia->setSource($name);
-                    parent::add($multimedia);
+					$multimedia->setSource($name);
+					
+					//Persist
+					$this->entityManager->persist($multimedia);
+					$this->entityManager->flush();
 
                     $this->generateThumbs($path, $name);
                     return $multimedia;
@@ -51,13 +54,17 @@ class MultimediaService extends BaseService {
     }
 
     private function generateThumbs($fullPath, $fileName) {
-        $imagine = new Imagine();
-        $size = new Box(400, 300);
-        $mode = ImageInterface::THUMBNAIL_OUTBOUND;
+		try {
+			$imagine = new Imagine();
+			$size = new Box(400, 300);
+			$mode = ImageInterface::THUMBNAIL_OUTBOUND;
 
-        $imagine->open($fullPath . $fileName)
-                ->thumbnail($size, $mode)
-                ->save($fullPath . 'thumbs' . DIRECTORY_SEPARATOR . $fileName);
+			$imagine->open($fullPath . $fileName)
+					->thumbnail($size, $mode)
+					->save($fullPath . 'thumbs' . DIRECTORY_SEPARATOR . $fileName);
+		} catch (\Exception $e) {
+			//throw $th;
+		}
 	}
 	
 	private function getUniqueFilename($fullPath, $fileName) {

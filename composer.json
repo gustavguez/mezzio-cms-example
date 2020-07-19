@@ -40,6 +40,7 @@
     "require": {
         "php": "^7.1",
         "cocur/slugify": "^4.0",
+        "imagine/imagine": "^1.2",
         "laminas/laminas-component-installer": "^2.1.2",
         "laminas/laminas-config-aggregator": "^1.2",
         "laminas/laminas-diactoros": "^2.3.0",

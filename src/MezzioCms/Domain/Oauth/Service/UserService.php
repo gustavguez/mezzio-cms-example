@@ -20,6 +20,17 @@ class UserService extends BaseService
                 'username' => $defaultUser->getDetail('oauth_user_id')
             ]);
         }
+	}
+	
+	public function getCurrentLoggedUserId(DefaultUser $defaultUser) {
+		$userId = null;
+		$user = $this->getCurrentLoggedUser($defaultUser);
+
+        //Check session
+        if($user instanceof UserEntity){
+            $userId = $user->getId();
+		}
+		return $userId;
     }
     
 }

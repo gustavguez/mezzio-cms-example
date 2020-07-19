@@ -8,10 +8,5 @@ use Gustavguez\MezzioCms\Domain\Core\Service\NewsContentService;
 
 class NewsContentHandler extends ContentHandler
 {
-
-    public function __construct(NewsContentService $service) {
-        //Call parent construct
-        parent::__construct($service);
-	}
 	
 }

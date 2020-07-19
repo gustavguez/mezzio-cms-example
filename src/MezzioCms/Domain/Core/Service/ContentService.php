@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Gustavguez\MezzioCms\Domain\Core\Service\MultimediaService;
 use Gustavguez\MezzioCms\Domain\Core\Entity\ContentEntity;
 use Gustavguez\MezzioCms\Domain\Api\Common\BaseService;
+use Gustavguez\MezzioCms\Domain\Oauth\Entity\UserEntity;
 
 class ContentService extends BaseService {
 
@@ -21,23 +22,26 @@ class ContentService extends BaseService {
 
     public function deleteContent($id) {
         if ((int) $id > 0) {
-            parent::delete($id);
+            return parent::deleteEntity($id);
         }
     }
 
-    public function addContent($payload, $uploadFiles, $userId) {
+    public function addContent($payload, $uploadFiles, UserEntity $user) {
         $content = new $this->class();
         /* @var $content ContentEntity */
-        $content->setContent($payload['content']);
-        $content->setDescription($payload['description']);
-        $content->setHighlighted((bool) $payload['highlighted']);
-        $content->setKeywords($payload['keywords']);
+        $content->setContent(isset($payload['content']) ? $payload['content'] : null);
+        $content->setDescription(isset($payload['description']) ? $payload['description'] : null);
+        $content->setHighlighted(isset($payload['highlighted']) ? (bool) $payload['highlighted'] : false);
+        $content->setKeywords(isset($payload['keywords']) ? $payload['keywords'] : null);
         $content->setPublished(true);
         $content->setTitle($payload['title']);
         $content->setUpDate(date('Y-m-d H:i:s'));
-        $content->setUserId($userId);
+        $content->setUser($user);
 
-        parent::add($content);
+		//Persist
+        $this->entityManager->persist($content);
+		$this->entityManager->flush();
+		
         //Add Multimedia
         if (!empty($uploadFiles) && !empty($uploadFiles['picture'])) {
             $multimediaEntity = $this->multimediaService->addMultimedia($uploadFiles['picture'], $this->multimediaFolder);
@@ -45,26 +49,29 @@ class ContentService extends BaseService {
                 $content->setMultimedia($multimediaEntity);
                 $this->entityManager->flush($content);
             }
-        }
+		}
+		return $content;
     }
 
-    public function updateContent($payload, $uploadFiles) {
-        $content = parent::findOneBy(array(
-                    'id' => $payload['id']
-        ));
+    public function updateContent($id, $payload, $uploadFiles) {
+        $content = parent::getEntity($id);
 
         if ($content instanceof $this->class) {
-            $content->setContent($payload['content']);
-            $content->setDescription($payload['description']);
-            $content->setHighlighted((bool) $payload['highlighted']);
-            $content->setKeywords($payload['keywords']);
+			$content->setContent(isset($payload['content']) ? $payload['content'] : null);
+			$content->setDescription(isset($payload['description']) ? $payload['description'] : null);
+			$content->setHighlighted(isset($payload['highlighted']) ? (bool) $payload['highlighted'] : false);
+			$content->setKeywords(isset($payload['keywords']) ? $payload['keywords'] : null);
             $content->setTitle($payload['title']);
             //Add Multimedia
             if (!empty($uploadFiles) && !empty($uploadFiles['picture'])) {
                 $multimediaEntity = $this->multimediaService->addMultimedia($uploadFiles['picture'], $this->multimediaFolder);
                 (!empty($multimediaEntity)) && $content->setMultimedia($multimediaEntity);
-            }
-            parent::update($content);
+			}
+			
+            //Persist
+			$this->entityManager->persist($content);
+			$this->entityManager->flush();
+			return $content;
         }
     }
 

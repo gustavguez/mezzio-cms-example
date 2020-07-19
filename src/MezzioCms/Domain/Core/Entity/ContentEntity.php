@@ -41,10 +41,11 @@ abstract class ContentEntity implements JsonSerializable {
     protected $description;
 
     /**
-     * @ORM\Column(name="user_id", type="integer")
+	 * @ORM\OneToOne(targetEntity="Gustavguez\MezzioCms\Domain\Oauth\Entity\UserEntity")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var string
      */
-    protected $userId;
+    protected $user;
 
     /**
      * @ORM\OneToOne(targetEntity="MultimediaEntity")
@@ -90,8 +91,8 @@ abstract class ContentEntity implements JsonSerializable {
         return $this->description;
     }
 
-    public function getUserId() {
-        return $this->userId;
+    public function getUser() {
+        return $this->user;
     }
 
     public function getMultimedia() {
@@ -130,8 +131,8 @@ abstract class ContentEntity implements JsonSerializable {
         $this->description = $description;
     }
 
-    public function setUserId($userId) {
-        $this->userId = $userId;
+    public function setUser($user) {
+        $this->user = $user;
     }
 
     public function setMultimedia($multimedia) {
@@ -151,11 +152,16 @@ abstract class ContentEntity implements JsonSerializable {
     }
 
     public function jsonSerialize() {
-        $multimedia = null;
+		$multimedia = null;
+		$user = null;
         $slug = Slugify::create();
 
         if ($this->multimedia instanceof JsonSerializable) {
             $multimedia = $this->multimedia->jsonSerialize();
+		}
+		
+		if ($this->user instanceof JsonSerializable) {
+            $user = $this->user->jsonSerialize();
         }
 
         return [
@@ -169,7 +175,7 @@ abstract class ContentEntity implements JsonSerializable {
             'highlighted' => $this->highlighted,
             'upDate' => $this->upDate,
             'multimedia' => $multimedia,
-            'userId' => $this->userId,
+            'user' => $user,
         ];
 	}
 	

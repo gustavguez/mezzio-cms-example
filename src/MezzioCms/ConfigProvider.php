@@ -42,10 +42,12 @@ class ConfigProvider
                 //Handlers
                 Handler\Oauth\MeHandler::class => Handler\Oauth\Factory\MeHandlerFactory::class,
                 Handler\Core\NewsContentHandler::class => Handler\Core\Factory\NewsContentHandlerFactory::class,
+                Handler\Core\NewsContentCategoryHandler::class => Handler\Core\Factory\NewsContentCategoryHandlerFactory::class,
 
                 //Services
 				Domain\Oauth\Service\UserService::class => Domain\Oauth\Service\Factory\UserServiceFactory::class,
 				Domain\Core\Service\NewsContentService::class => Domain\Core\Service\Factory\NewsContentServiceFactory::class,
+				Domain\Core\Service\NewsContentCategoryService::class => Domain\Core\Service\Factory\NewsContentCategoryServiceFactory::class,
 				Domain\Core\Service\MultimediaService::class => Domain\Core\Service\Factory\MultimediaServiceFactory::class
             ],
         ];

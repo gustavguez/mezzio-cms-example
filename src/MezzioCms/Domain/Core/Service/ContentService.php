@@ -36,7 +36,10 @@ class ContentService extends BaseService {
         $content->setPublished(true);
         $content->setTitle($payload['title']);
         $content->setUpDate(date('Y-m-d H:i:s'));
-        $content->setUser($user);
+		$content->setUser($user);
+		
+		//Parse content
+		$this->parseContentBeforePersist($content, $payload);
 
 		//Persist
         $this->entityManager->persist($content);
@@ -51,7 +54,11 @@ class ContentService extends BaseService {
             }
 		}
 		return $content;
-    }
+	}
+	
+	public function parseContentBeforePersist($content, $payload){
+
+	}
 
     public function updateContent($id, $payload, $uploadFiles) {
         $content = parent::getEntity($id);
@@ -61,7 +68,11 @@ class ContentService extends BaseService {
 			$content->setDescription(isset($payload['description']) ? $payload['description'] : null);
 			$content->setHighlighted(isset($payload['highlighted']) ? (bool) $payload['highlighted'] : false);
 			$content->setKeywords(isset($payload['keywords']) ? $payload['keywords'] : null);
-            $content->setTitle($payload['title']);
+			$content->setTitle($payload['title']);
+			
+			//Parse content
+			$this->parseContentBeforePersist($content, $payload);
+
             //Add Multimedia
             if (!empty($uploadFiles) && !empty($uploadFiles['picture'])) {
                 $multimediaEntity = $this->multimediaService->addMultimedia($uploadFiles['picture'], $this->multimediaFolder);

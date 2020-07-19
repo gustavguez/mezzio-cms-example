@@ -46,8 +46,12 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 	);
 	$app->route('/cms/news[/{id}]', [
 			Mezzio\Authentication\AuthenticationMiddleware::class,
-			Mezzio\Helper\BodyParams\BodyParamsMiddleware::class,
 			Gustavguez\MezzioCms\Handler\Core\NewsContentHandler::class
 		], ['GET', 'POST', 'DELETE']
+	);
+	$app->route('/cms/news-categories', [
+			Mezzio\Authentication\AuthenticationMiddleware::class,
+			Gustavguez\MezzioCms\Handler\Core\NewsContentCategoryHandler::class
+		], ['GET']
 	);
 };

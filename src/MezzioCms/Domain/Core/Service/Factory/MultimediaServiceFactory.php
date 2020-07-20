@@ -11,7 +11,7 @@ class MultimediaServiceFactory {
         $config = $container->get('config');
 		$em = $container->get('doctrine.entity_manager.orm_default');
 
-        return new MultimediaService($em, $config['mezzio-cms']);
+        return new MultimediaService($em, isset($config['mezzio-cms']) ? $config['mezzio-cms'] : []);
     }
 
 }

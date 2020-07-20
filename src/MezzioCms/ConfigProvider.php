@@ -49,7 +49,10 @@ class ConfigProvider
 				Domain\Oauth\Service\UserService::class => Domain\Oauth\Service\Factory\UserServiceFactory::class,
 				Domain\Core\Service\NewsContentService::class => Domain\Core\Service\Factory\NewsContentServiceFactory::class,
 				Domain\Core\Service\NewsContentCategoryService::class => Domain\Core\Service\Factory\NewsContentCategoryServiceFactory::class,
-				Domain\Core\Service\MultimediaService::class => Domain\Core\Service\Factory\MultimediaServiceFactory::class
+				Domain\Core\Service\MultimediaService::class => Domain\Core\Service\Factory\MultimediaServiceFactory::class,
+				Domain\Render\Service\RenderService::class => Domain\Render\Service\Factory\RenderServiceFactory::class,
+				Domain\Render\Service\RendererNewsContentService::class => Domain\Render\Service\Factory\RendererNewsContentServiceFactory::class,
+				Domain\Render\Service\RendererService::class => Domain\Render\Service\Factory\RendererServiceFactory::class
             ],
         ];
     }

@@ -1,8 +1,8 @@
 {
-	"renders": [
+	"blocks": [
 		{
 			"key": "all-news",
-			"render": "news",
+			"renderer": "news",
 			"params": [
 				
 			]

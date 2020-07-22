@@ -35,7 +35,7 @@ use Psr\Container\ContainerInterface;
  */
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
 	$app->get('/', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'home');
-	$app->get('/news', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'news');
+	$app->get('/noticias/{title}-{id}', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'news');
 	
 	//MEZZIO-CMS ROUTES
 	//$app->get('/', Gustavguez\MezzioCms\Handler\Core\RenderHandler::class, 'home');

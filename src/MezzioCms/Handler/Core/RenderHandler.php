@@ -30,10 +30,14 @@ class RenderHandler implements RequestHandlerInterface
 		$result = $request->getAttribute(RouteResult::class);
 		$templateName = $result->getMatchedRouteName();
 
-		//Run render service to compile data
-		$data = $this->render->process($templateName);
+		//Get route params
+		$routeParams = $result->getMatchedParams();
 
-		var_dump($data);die;
+		//Get query params
+		$queryParams = $request->getQueryParams();
+
+		//Run render service to compile data
+		$data = $this->render->process($templateName, $routeParams, $queryParams);
 
 		return new HtmlResponse($this->template->render('app::' . $templateName, $data));
 	}

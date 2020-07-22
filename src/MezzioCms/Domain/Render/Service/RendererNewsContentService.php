@@ -15,16 +15,21 @@ class RendererNewsContentService
 		$this->newsContentService = $newsContentService;
 	}
 
-	public function render(array $params): ?array {
+	public function render(array $params) {
 		$data = [];
 
 		try {
-			$data = $this->newsContentService->getCollection($params);
+
+			//Check id in params
+			if(isset($params['id'])) {
+				$data = $this->newsContentService->getEntity($params['id']);
+			} else {
+				//Normal fetch
+				$data = $this->newsContentService->getCollection($params);
+			}
 		} catch (\Exception $e) {
 			//Return exception
-			$data = [
-				$e->getMessage()
-			];
+			$data = $e->getMessage();
 		}
 		
 		return $data;

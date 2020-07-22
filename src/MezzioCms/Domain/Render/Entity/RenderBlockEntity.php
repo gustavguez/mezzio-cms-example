@@ -35,7 +35,14 @@ class RenderBlockEntity {
 	public function fromJSON($json){
 		$this->key = isset($json['key']) ? $json['key'] : null;
 		$this->renderer = isset($json['renderer']) ? $json['renderer'] : null;
-		$this->params = isset($json['params']) ? $json['params'] : null;
+		$this->params = [];
+		
+		//Load params
+		if(isset($json['params']) && is_array($json['params']) && count($json['params'])){
+			foreach ($json['params'] as $param) {
+				$this->params[] = new RenderBlockParamEntity($param);
+			}
+		}
 	}
 
 	public function __construct($json = null) {

@@ -12,7 +12,8 @@ class RenderService
 	//Constants
 	const CONFIG_TEMPLATES_KEY = "render_templates_path";
 	const RENDER_BLOCKS_KEY = "blocks";
-	const SHARED_TEMPATE_NAME = "shared.template.json";
+	const SHARED_TEMPATE_NAME = "shared";
+	const TEMPLATE_EXTENSION = "template.json";
 
 	//Models
 	protected $config;
@@ -23,12 +24,19 @@ class RenderService
 		$this->renderer = $renderer;
 	}
 
-	public function process(string $templateName): array {
+	public function process(string $templateName, array $routeParams, array $queryParams): array {
 		//Load Shared templates
 		$sharedRenderBlocks = $this->getRenderBlocks(self::SHARED_TEMPATE_NAME);
 
+		//Load template blocks
+		$templateRenderBlocks = $this->getRenderBlocks($templateName);
+
 		//Render
-		$data = $this->renderer->render($sharedRenderBlocks);
+		$data = $this->renderer->render(
+			array_merge( $sharedRenderBlocks, $templateRenderBlocks ), 
+			$routeParams, 
+			$queryParams
+		);
 		return $data;
 	}
 
@@ -63,7 +71,7 @@ class RenderService
 	}
 
 	private function getFullTemplatePath($templateName): string {
-		return $this->config[self::CONFIG_TEMPLATES_KEY] . $templateName;
+		return $this->config[self::CONFIG_TEMPLATES_KEY] . $templateName . '.' . self::TEMPLATE_EXTENSION;
 	}
     
 }

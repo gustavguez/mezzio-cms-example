@@ -3,5 +3,7 @@
 {% block title %}News{% endblock %}
 
 {% block content %}
-    NEWS
+    {% if news is defined and news is not empty %}
+		<h1>{{ news.title }}</h1>
+	{% endif %}
 {% endblock %}

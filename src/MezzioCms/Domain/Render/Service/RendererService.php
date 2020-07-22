@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gustavguez\MezzioCms\Domain\Render\Service;
 
 use Gustavguez\MezzioCms\Domain\Render\Entity\RenderBlockEntity;
+use Gustavguez\MezzioCms\Domain\Render\Entity\RenderBlockParamEntity;
 use Gustavguez\MezzioCms\Domain\Render\Entity\RendererTypesEnum;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererNewsContentService;
 use JsonSerializable;
@@ -19,7 +20,7 @@ class RendererService
 		$this->rendererNewsContentService = $rendererNewsContentService;
 	}
 
-	public function render($renderBlocks): array {
+	public function render($renderBlocks, array $routeParams, array $queryParams): array {
 		$data = [];
 
 		//Check blocks
@@ -27,18 +28,20 @@ class RendererService
 			foreach ($renderBlocks as $key => $renderBlock) {
 				//Check instanceof first
 				if($renderBlock instanceof RenderBlockEntity){
-					$data[$renderBlock->getKey()] = $this->renderRenderBlock($renderBlock);
+					$data[$renderBlock->getKey()] = $this->renderRenderBlock($renderBlock, $routeParams, $queryParams);
 				}
 			}
 		}
 		return $data;
 	}
 
-	private function renderRenderBlock(RenderBlockEntity $renderBlock): ?array {
+	private function renderRenderBlock(RenderBlockEntity $renderBlock, array $routeParams, array $queryParams): ?array {
 		$data = [];
 		$output = [];
-		$params =  $renderBlock->getParams();
 		$renderer = $renderBlock->getRenderer();
+
+		//Process params
+		$params =  $this->processParams( $renderBlock->getParams(), $routeParams, $queryParams );
 
 		//Switch render
 		switch ($renderer) {
@@ -60,5 +63,45 @@ class RendererService
 			$data = $output->jsonSerialize();
 		}
 		return $data;
+	}
+
+	private function processParams(array $renderBlockParams, array $routeParams, array $queryParams): array {
+		$params = [];
+
+		if(is_array($renderBlockParams) && count($renderBlockParams)){
+			foreach ($renderBlockParams as $blockParam) {
+				$value = $blockParam->getValue();
+
+				if($blockParam->isTemplateValue()) {
+					$value = $this->renderTemplateValue($blockParam, $routeParams, $queryParams);
+				} 
+				
+				$params[$blockParam->getKey()] = $value;
+			}
+		}
+
+		return $params;
+	}
+
+	private function renderTemplateValue(RenderBlockParamEntity $blockParam, array $routeParams, array $queryParams): string {
+		$value = '';
+		$neededKey = $blockParam->getTemplateName();
+
+		if(is_array($queryParams) && count($queryParams)){
+			foreach ($queryParams as $qpKey => $qpValue) {
+				if($neededKey === $qpKey) {
+					$value = $qpValue;
+				}
+			}
+		}
+
+		if(is_array($routeParams) && count($routeParams)){
+			foreach ($routeParams as $rpKey => $rpValue) {
+				if($neededKey === $rpKey) {
+					$value = $rpValue;
+				}
+			}
+		}
+		return $value;
 	}
 }

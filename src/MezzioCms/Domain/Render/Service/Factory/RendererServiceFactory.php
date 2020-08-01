@@ -7,15 +7,18 @@ namespace Gustavguez\MezzioCms\Domain\Render\Service\Factory;
 use Psr\Container\ContainerInterface;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererService;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererNewsContentService;
+use Gustavguez\MezzioCms\Domain\Render\Service\RendererSectionContentService;
 
 class RendererServiceFactory
 {
     public function __invoke(ContainerInterface $container) : RendererService
     {
 		$rendererNewsContent = $container->get(RendererNewsContentService::class);
-		
+		$rendererSectionContentService = $container->get(RendererSectionContentService::class);
+
         return new RendererService(
-			$rendererNewsContent
+			$rendererNewsContent,
+			$rendererSectionContentService
 		);
     }
 }

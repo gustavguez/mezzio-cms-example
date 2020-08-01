@@ -43,15 +43,18 @@ class ConfigProvider
                 Handler\Oauth\MeHandler::class => Handler\Oauth\Factory\MeHandlerFactory::class,
                 Handler\Core\RenderHandler::class => Handler\Core\Factory\RenderHandlerFactory::class,
                 Handler\Core\NewsContentHandler::class => Handler\Core\Factory\NewsContentHandlerFactory::class,
+                Handler\Core\SectionContentHandler::class => Handler\Core\Factory\SectionContentHandlerFactory::class,
                 Handler\Core\NewsContentCategoryHandler::class => Handler\Core\Factory\NewsContentCategoryHandlerFactory::class,
 
                 //Services
 				Domain\Oauth\Service\UserService::class => Domain\Oauth\Service\Factory\UserServiceFactory::class,
 				Domain\Core\Service\NewsContentService::class => Domain\Core\Service\Factory\NewsContentServiceFactory::class,
+				Domain\Core\Service\SectionContentService::class => Domain\Core\Service\Factory\SectionContentServiceFactory::class,
 				Domain\Core\Service\NewsContentCategoryService::class => Domain\Core\Service\Factory\NewsContentCategoryServiceFactory::class,
 				Domain\Core\Service\MultimediaService::class => Domain\Core\Service\Factory\MultimediaServiceFactory::class,
 				Domain\Render\Service\RenderService::class => Domain\Render\Service\Factory\RenderServiceFactory::class,
 				Domain\Render\Service\RendererNewsContentService::class => Domain\Render\Service\Factory\RendererNewsContentServiceFactory::class,
+				Domain\Render\Service\RendererSectionContentService::class => Domain\Render\Service\Factory\RendererSectionContentServiceFactory::class,
 				Domain\Render\Service\RendererService::class => Domain\Render\Service\Factory\RendererServiceFactory::class
             ],
         ];

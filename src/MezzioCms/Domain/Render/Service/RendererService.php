@@ -15,9 +15,14 @@ class RendererService
 
 	//Renderers
 	protected $rendererNewsContentService;
+	protected $rendererSectionContentService;
 
-	public function __construct(RendererNewsContentService $rendererNewsContentService) {
+	public function __construct(
+		RendererNewsContentService $rendererNewsContentService,
+		RendererSectionContentService $rendererSectionContentService) {
+
 		$this->rendererNewsContentService = $rendererNewsContentService;
+		$this->rendererSectionContentService = $rendererSectionContentService;
 	}
 
 	public function render($renderBlocks, array $routeParams, array $queryParams): array {
@@ -47,6 +52,9 @@ class RendererService
 		switch ($renderer) {
 			case RendererTypesEnum::NEWS_CONTENT:
 				$output = $this->rendererNewsContentService->render($params);
+				break;
+			case RendererTypesEnum::SECTIONS_CONTENT:
+				$output = $this->rendererSectionContentService->render($params);
 				break;
 		}
 

@@ -6,6 +6,7 @@ namespace Gustavguez\MezzioCms\Domain\Render\Service;
 
 use Gustavguez\MezzioCms\Domain\Render\Entity\RenderBlockEntity;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererService;
+use Exception;
 
 class RenderService
 {

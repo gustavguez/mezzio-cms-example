@@ -108,9 +108,9 @@ class ContentService extends BaseService {
         }
         
         //Create new quer improved
-        $query = implode('%', $aux);
+		$query = implode('%', $aux);
 
-        return $this->repository->createQueryBuilder('c')
+        return $this->entityRepository->createQueryBuilder('c')
                         ->where('c.title LIKE :query OR c.description LIKE :query')
                         ->andWhere('c.published = 1')
                         ->setParameter('query', sprintf('%%%s%%', $query))

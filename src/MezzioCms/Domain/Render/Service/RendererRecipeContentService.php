@@ -22,7 +22,12 @@ class RendererRecipeContentService
 			//Check id in params
 			if(isset($params['id'])) {
 				$data = $this->recipeContentService->getEntity($params['id']);
+			} else if(isset($params['query']) && !empty($params['query'])) {
+				$data = $this->recipeContentService->searchContent($params['query']);
 			} else {
+				//Default published 1
+				$params['published'] = 1;
+
 				//Normal fetch
 				$data = $this->recipeContentService->getCollection($params);
 			}

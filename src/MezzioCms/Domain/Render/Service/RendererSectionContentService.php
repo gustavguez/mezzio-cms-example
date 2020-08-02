@@ -23,6 +23,9 @@ class RendererSectionContentService
 			if(isset($params['id'])) {
 				$data = $this->sectionContentService->getEntity($params['id']);
 			} else {
+				//Default published 1
+				$params['published'] = 1;
+				
 				//Normal fetch
 				$data = $this->sectionContentService->getCollection($params);
 			}

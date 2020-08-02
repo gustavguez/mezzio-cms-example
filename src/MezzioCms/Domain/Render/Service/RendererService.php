@@ -46,7 +46,7 @@ class RendererService
 		return $data;
 	}
 
-	private function renderRenderBlock(RenderBlockEntity $renderBlock, array $routeParams, array $queryParams): ?array {
+	private function renderRenderBlock(RenderBlockEntity $renderBlock, array $routeParams, array $queryParams) {
 		$data = [];
 		$output = [];
 		$renderer = $renderBlock->getRenderer();
@@ -81,6 +81,9 @@ class RendererService
 		} else if($output instanceof JsonSerializable) {
 			//Render primary level as json
 			$data = $output->jsonSerialize();
+		} else if(is_string($output)) {
+			//Render primary level as json
+			$data = $output;
 		}
 		return $data;
 	}

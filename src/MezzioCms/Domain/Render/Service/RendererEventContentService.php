@@ -23,6 +23,9 @@ class RendererEventContentService
 			if(isset($params['id'])) {
 				$data = $this->eventContentService->getEntity($params['id']);
 			} else {
+				//Default published 1
+				$params['published'] = 1;
+
 				//Normal fetch
 				$data = $this->eventContentService->getCollection($params);
 			}

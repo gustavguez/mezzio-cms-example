@@ -24,6 +24,9 @@ class RendererNewsContentService
 			if(isset($params['id'])) {
 				$data = $this->newsContentService->getEntity($params['id']);
 			} else {
+				//Default published 1
+				$params['published'] = 1;
+
 				//Normal fetch
 				$data = $this->newsContentService->getCollection($params);
 			}

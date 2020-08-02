@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Gustavguez\MezzioCms\Domain\Render\Service\Factory;
 
+use Gustavguez\MezzioCms\Domain\Render\Service\RendererEventContentService;
 use Psr\Container\ContainerInterface;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererService;
 use Gustavguez\MezzioCms\Domain\Render\Service\RendererNewsContentService;
@@ -17,11 +18,13 @@ class RendererServiceFactory
 		$rendererNewsContent = $container->get(RendererNewsContentService::class);
 		$rendererSectionContentService = $container->get(RendererSectionContentService::class);
 		$rendererRecipeContentService = $container->get(RendererRecipeContentService::class);
+		$rendererEventContentService = $container->get(RendererEventContentService::class);
 
         return new RendererService(
 			$rendererNewsContent,
 			$rendererSectionContentService,
-			$rendererRecipeContentService
+			$rendererRecipeContentService,
+			$rendererEventContentService
 		);
     }
 }

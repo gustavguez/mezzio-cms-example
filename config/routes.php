@@ -65,4 +65,9 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 		Gustavguez\MezzioCms\Handler\Core\RecipeContentHandler::class
 		], ['GET', 'POST', 'DELETE']
 	);
+	$app->route('/cms/events[/{id}]', [
+		Mezzio\Authentication\AuthenticationMiddleware::class,
+		Gustavguez\MezzioCms\Handler\Core\RecipeContentHandler::class
+		], ['GET', 'POST', 'DELETE']
+	);
 };

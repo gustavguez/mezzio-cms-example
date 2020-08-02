@@ -45,16 +45,21 @@ class ConfigProvider
                 Handler\Core\NewsContentHandler::class => Handler\Core\Factory\NewsContentHandlerFactory::class,
                 Handler\Core\SectionContentHandler::class => Handler\Core\Factory\SectionContentHandlerFactory::class,
                 Handler\Core\NewsContentCategoryHandler::class => Handler\Core\Factory\NewsContentCategoryHandlerFactory::class,
+                Handler\Core\RecipeContentHandler::class => Handler\Core\Factory\RecipeContentHandlerFactory::class,
 
                 //Services
 				Domain\Oauth\Service\UserService::class => Domain\Oauth\Service\Factory\UserServiceFactory::class,
 				Domain\Core\Service\NewsContentService::class => Domain\Core\Service\Factory\NewsContentServiceFactory::class,
 				Domain\Core\Service\SectionContentService::class => Domain\Core\Service\Factory\SectionContentServiceFactory::class,
 				Domain\Core\Service\NewsContentCategoryService::class => Domain\Core\Service\Factory\NewsContentCategoryServiceFactory::class,
+				Domain\Core\Service\RecipeContentService::class => Domain\Core\Service\Factory\RecipeContentServiceFactory::class,
 				Domain\Core\Service\MultimediaService::class => Domain\Core\Service\Factory\MultimediaServiceFactory::class,
+				
+				//Reders Services
 				Domain\Render\Service\RenderService::class => Domain\Render\Service\Factory\RenderServiceFactory::class,
 				Domain\Render\Service\RendererNewsContentService::class => Domain\Render\Service\Factory\RendererNewsContentServiceFactory::class,
 				Domain\Render\Service\RendererSectionContentService::class => Domain\Render\Service\Factory\RendererSectionContentServiceFactory::class,
+				Domain\Render\Service\RendererRecipeContentService::class => Domain\Render\Service\Factory\RendererRecipeContentServiceFactory::class,
 				Domain\Render\Service\RendererService::class => Domain\Render\Service\Factory\RendererServiceFactory::class
             ],
         ];

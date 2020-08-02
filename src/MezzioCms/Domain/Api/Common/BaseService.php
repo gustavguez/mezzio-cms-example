@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gustavguez\MezzioCms\Domain\Api\Common;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Exception;
 
 class BaseService
@@ -69,5 +70,34 @@ class BaseService
             return $this->entityRepository->findBy($params);
         }
         return $this->entityRepository->findAll();
+	}
+	
+	public function getCollectionPaginated($params = NULL){
+		//Page
+		$pageSize = 2;
+		$currentPage = isset($params['page']) ? $params['page'] : 1;
+
+		//Create query
+		$query = $this->entityRepository->createQueryBuilder('c');
+
+		//Select
+		$query->select('c');
+
+		//Check params
+		if(is_array($params) && count($params)){
+			foreach ($params as $key => $value) {
+				$query->where(
+					$query->expr()->eq('c.' . $key, $value)
+				);
+			}
+		}
+
+		//Paginate
+		$query->setFirstResult($pageSize * ($currentPage - 1)) // Offset
+			  ->setMaxResults($pageSize); // Limit
+		
+		//Create pager
+		$pager = new Paginator($query->getQuery());
+        return $pager;
     }
 }
